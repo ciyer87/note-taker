@@ -1,13 +1,19 @@
 const express = require('express');
 const app = express();
-const { notes } = require('./db/db.json');
+const { notes } = require('./db/db');
 const PORT = process.env.PORT || 3001;
 
-app.get('/api/notes', (req, res) => {
+// Sets up the Express app to handle data parsing
+app.use(express.urlencoded({ extended: true }));
+// parse incoming JSON data
+app.use(express.json());
+
+app.get('/notes', (req, res) => {
     res.json(notes);
+    console.log(notes);
   });
 
-app.post('/api/notes', (req, res) => {
+app.post('/notes', (req, res) => {
     console.log(req.body);
     res.json(req.body);
 });

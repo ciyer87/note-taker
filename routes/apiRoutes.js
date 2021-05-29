@@ -7,52 +7,50 @@ router.get('/notes', (req, res)=>{
     res.json(db)
 })
 
+router.get('/notes/:id', (req, res) => {
+    const result = findById(req.params.id, db);
+    res.json(result);
+})
 
 router.post('/notes', (req, res) => {
-console.log(req.body.title);
-  //const title = req.body.title;
-  //const text = req.body.text;
   const {title, text} = req.body;
   const id = Math.floor(Math.random()*1000);
   const newNote = {title, text,id}
   db.push(newNote);
   fs.writeFileSync(
-      'db/db.json', JSON.stringify(db)
+      'db/db.json', JSON.stringify(db), (err) => {
+          if(err) throw err;
+          console.log('The file was updated');
+      }
   )
+  res.json(db);
 })
 
-router.delete('/notes', (req, res) => {
 
-    const id = req.params.id;
-    
-})
+router.delete("/notes/:id", function (req, res) {
+    var id = req.params.id;
+    fs.readFileSync('./db/db.json', (err, data) => {
+        if (err) throw err;
+        db = JSON.parse(data);
+    });
+
+    for (var i = 0; i < db.length; i++) {
+
+        if (db[i].id == id) {
+            console.log("Deleting ==============");
+            console.log(db[i]);
+            db.splice(i, 1);
+        }
+    }
+
+    fs.writeFile("./db/db.json", JSON.stringify(db), (err) => {
+        if (err) throw err;
+        console.log('The file was updated!');
+    });
+
+    res.json(id);
+});
 
 module.exports = router;
 
 
-
-
-
-
-// function createNewNote(body, notesArray) {
-//     const note = body;
-//     notesArray.push(note);
-//     fs.writeFileSync(
-//         path.join(__dirname, './db/db.json'),
-//         JSON.stringify({ notes: notesArray }, null, 2)
-//     );
-//     return note;
-// }
-
-// app.get('/notes', (req, res) => {
-//     res.json(notes);
-//     console.log(notes);
-//   });
-
-// app.post('/notes', (req, res) => {
-//     console.log(req.body);
-//     req.body.id = notes.length.toString();
-//     const note = createNewNote(req.body, notes);
-//     console.log(note);
-//     res.json(note);
-// });

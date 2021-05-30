@@ -14,7 +14,7 @@ Deployed site: https://safe-crag-82447.herokuapp.com/
 
 * Notes
 
-![Notes](assets/images/notes.png)
+![Notes](public/assets/images/notes.png)
 
 * Note details
 

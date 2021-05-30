@@ -37,11 +37,11 @@ router.delete("/notes/:id", function (req, res) {
     for (var i = 0; i < db.length; i++) {
 
         if (db[i].id == id) {
-            console.log("Deleting ==============");
-            console.log(db[i]);
-            db.splice(i, 1);
-        }
-    }
+          console.log("Deleting ==============");
+           console.log(db[i]);
+          db.splice(i, 1);
+       }
+   }
 
     fs.writeFile("./db/db.json", JSON.stringify(db), (err) => {
         if (err) throw err;

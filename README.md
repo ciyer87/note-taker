@@ -4,7 +4,8 @@ This is an Express.js application application that can be used to write, save an
 
 # Installation
 
-Clone the repository from GitHub and open using Visual Studio Code.
+* Clone the repository from GitHub and open using Visual Studio Code.
+* run the command npm install to install dependencies
 
 # Usage
 
